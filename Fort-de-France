@@ -1,0 +1,28 @@
+const jour = 'lundi';
+
+switch (jour) {
+    case 'samedi': // day === 'lundi'
+        console.log('Aller à la plage');
+        console.log('Dîner dans un restaurant à la plage');
+        break;
+    case 'dimanche':
+        console.log('Cathédrale Saint Louis à 10h');
+        break;
+    case 'lundi': 
+        console.log('Le marché couvert de Fort-de-France'); 
+        console.log('Le bateau taxi trois-îlets');
+        break;
+    case 'mardi':
+        console.log('Jardin de Balata');
+        console.log('Pâtisserie Surena');
+        break;
+    case 'mercredi':
+        console.log('Pâtisserie Surena');
+        break;
+    case 'jeudi':
+    case 'vendredi':
+        console.log('Rentre bien')
+        break;
+    default:
+        console.log('La date est non valable')
+}
