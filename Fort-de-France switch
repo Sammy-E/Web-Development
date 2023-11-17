@@ -2,7 +2,7 @@ const jour = 'lundi';
 
 switch (jour) {
     case 'samedi': // day === 'lundi'
-        console.log('Aller à la plage');
+        console.log('Le bateau taxi trois-îlets');
         console.log('Dîner dans un restaurant à la plage');
         break;
     case 'dimanche':
@@ -10,14 +10,17 @@ switch (jour) {
         break;
     case 'lundi': 
         console.log('Le marché couvert de Fort-de-France'); 
-        console.log('Le bateau taxi trois-îlets');
+        console.log('Distillerie La Favorite 2 - 4'); 
+        console.log('Gwa-Gwa Resto');
         break;
     case 'mardi':
-        console.log('Jardin de Balata');
         console.log('Pâtisserie Surena');
+        console.log('Jardin de Balata 4 - 6'); 
+        console.log('Référence snack');
         break;
     case 'mercredi':
-        console.log('Pâtisserie Surena');
+        console.log('Pâtisserie Surena'); 
+        console.log('Aller à la plage La Française');
         break;
     case 'jeudi':
     case 'vendredi':
