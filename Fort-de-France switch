@@ -3,7 +3,7 @@ const jour = 'lundi';
 switch (jour) {
     case 'samedi': // day === 'lundi'
         console.log('Le bateau taxi trois-îlets');
-        console.log('Dîner dans un restaurant à la plage');
+        console.log('Dîner dans un restaurant (le soleil couchant) à la plage de l'Anse Mitan');
         break;
     case 'dimanche':
         console.log('Cathédrale Saint Louis à 10h');
