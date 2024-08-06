@@ -17,7 +17,6 @@ const moment = require('moment');
         since: startOfMonth
       }, 
       json: true
-  }
 }); 
     
     const maskedDeals = private.mask(deals); 
