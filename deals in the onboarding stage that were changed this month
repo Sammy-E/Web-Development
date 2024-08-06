@@ -1,0 +1,40 @@
+const request = require('request-promise'); 
+
+(async function() {
+  try {
+    
+    const endpoint = 'deals/v1/deal/recent/modified'; 
+    const startOfMonth = moment().startOf('month').unix() * 1000;
+    // get recent deals hubspot 
+    const deals = await request({
+      method: 'GET', 
+      url: `https://api.hubapi.com${endpoint}`, 
+      qs: {
+        hapikey: private.hubspotApikey, 
+        count: 100, 
+        since: startOfMonth
+      }, 
+      json: true
+  }
+}); 
+    
+    const maskedDeals = private.mask(deals); 
+
+// filter to this month 
+// we want the timestamp to be greater than beginning of this month 
+    
+    const onboardingDeals = maskedDeals.results.filter(deal => { 
+      const stage = deal.properties.dealstage.value;
+      return stage.value === 'onboarding' && stage.timestamp > startOfMonth;
+    }) 
+    
+    console.log(onboardingDeals.length)
+
+// print who they are 
+
+// sum it up 
+
+} catch (e) {
+  console.log('our error', e); 
+} 
+}();
