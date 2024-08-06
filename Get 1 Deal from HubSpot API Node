@@ -1,0 +1,32 @@
+const request = require('request-promise'); 
+
+(async function() {
+  try {
+    
+    const endpoint = 'deals/v1/deal/recent/modified';
+    // get recent deals hubspot 
+    const deals = await request({
+      method: 'GET', 
+      url: `https://api.hubapi.com${endpoint}`, 
+      qs: {
+        hapikey: private.hubspotApikey, 
+        count: 100, 
+        since: moment().startOf('month').unix() * 1000
+      }, 
+      json: true
+  }
+}); 
+    
+    const maskedDeals = private.mask(deals); 
+    console.log(maskedDeals.results[0])
+
+// filter to this month 
+
+// print who they are 
+
+// sum it up 
+
+} catch (e) {
+  console.log('our error', e); 
+} 
+}();
