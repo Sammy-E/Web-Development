@@ -1,0 +1,66 @@
+const request = require('request-promise'); 
+const private = require('./private'); 
+const moment = require('moment'); 
+const _ = require('lodash');
+
+const hubspot = async function(method = 'GET', endpoint, body) {
+      const options = {
+      method: 'GET', 
+      url: `https://api.hubapi.com${endpoint}`, 
+      qs: {
+        hapikey: private.hubspotApikey
+      }, 
+      json: true
+  }; 
+      // this is so we can pass in post parameters if needed.
+      if (body) options.body = body;
+      const res = await request(options); 
+      return private.mask(res);
+    };
+
+(async function() {
+  try {
+    
+    const endpoint = 'deals/v1/deal/recent/modified'; 
+    const startOfMonth = moment().startOf('month').unix() * 1000; 
+    
+    // get owners 
+    // with lodash, now this is more like a dictionary and we can look up who it was
+    const hubspotOwners = await hubspot('GET', '/owners/v2/owners/') 
+    const owners = _.keyBy(hubspotOwners, 'ownerId'); 
+    console.log(owners);
+
+    // get recent deals hubspot 
+    const deals = await hubspot('GET', 'deals/v1/deal/recent/modified', {
+      count: 100, 
+      since: startOfMonth
+    }); 
+    
+    const maskedDeals = private.mask(deals); 
+
+// filter to this month 
+// we want the timestamp to be greater than beginning of this month 
+// we want deals in the stage of onboarding that were changed this month 
+    
+    const onboardingDeals = maskedDeals.results.filter(deal => { 
+      const stage = deal.properties.dealstage.value;
+      return stage.value === 'onboarding' && stage.timestamp > startOfMonth;
+    });
+
+// print who they are 
+    const mapped = onboardingDeals.map(deal => ({
+      name: deal.properties.dealname.value, 
+      amount: deal.properties.amount.value, 
+      setUpFee: deal.properties.onboarding ? deal.properties.onboarding.value : 0, 
+      date: moment(+deal.properties.closedate.value).format('YYYY-MM-DD'), 
+      owner: owners[deal.properties.hubspot_owner_id.value].firstName
+    }));
+
+    console.log(mapped);
+    
+// sum it up 
+
+} catch (e) {
+  console.log('our error', e); 
+} 
+}();
